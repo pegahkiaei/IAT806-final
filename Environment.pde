@@ -1,11 +1,13 @@
 ArrayList<Plant> forest = new ArrayList<Plant>(); 
 float maxPossibleHeight = height;
+PainManager pm;
 float pr = 6, prCopy = 6;
 float index2 = 11;
 float speedY = 2;
 float prBase = 9;
 int index = 0;
 float mh;                                                                                               //maximum height
+Sky sky;
 
 class Environment {                                                                                     //glue everything together
 
@@ -23,6 +25,10 @@ class Environment {                                                             
 ////////////////////////////////////////////////////////////////////////////////
   Environment() {
     g = new Ground();
+    sky = new Sky();
+    pm = new PainManager();
+    
+    
     updateMh();
     //making objects from Pain Manager
     //PGraphics back = createGraphics(width, height, P2D);                                                //for leaves
@@ -33,6 +39,8 @@ class Environment {                                                             
 ///////////methods//////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
   void drawTheGame() {
+    sky.drawClounds(pr);
+    pm.extractPainLevel();
     // get pr from PainManager
     pr = prCopy;
     // check if pr is changing
