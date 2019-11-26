@@ -12,7 +12,7 @@ class Ground {
     push();
     noStroke();
     beginShape();
-    fill(63, 122, 77, pr*20);
+    fill(63, 122, 77, pr);
     for (int i=0; i<40; i++) {
       vertex(ground[i].x1, ground[i].y1);
       bezierVertex(ground[i].x, ground[i].y,ground[i].x2, ground[i].y2,ground[i].x3, ground[i].y3);

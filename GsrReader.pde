@@ -1,3 +1,6 @@
+/* this class reads data from GSR sensor's server. however, if we run the code without the sensors error rises so
+I just commented related parts so you can run it indipendently, also, the code is manual (and still clicking simulate GSR leap)*/
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;

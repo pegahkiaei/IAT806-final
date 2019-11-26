@@ -18,7 +18,7 @@ Environment e;
 void setup() {
   size(2000, 1500);                                                                                     // Set screen size & renderer
   background(5, 8, 80);
-  frameRate(60);
+  frameRate(3);
   e =  new Environment();
 }
 void draw() {

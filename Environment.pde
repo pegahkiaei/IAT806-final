@@ -1,43 +1,51 @@
 ArrayList<Plant> forest = new ArrayList<Plant>(); 
-float maxPossibleHeight = height;
+float maxPossibleHeight = 2*height/7;
 PainManager pm;
 float pr = 6, prCopy = 6;
 float index2 = 11;
 float speedY = 2;
 float prBase = 9;
 int index = 0;
-float mh;                                                                                               //maximum height
+float mh;   
+//maximum height
 Sky sky;
+
+//initial minute and second
+float initMin, initSec;
 
 class Environment {                                                                                     //glue everything together
 
-////////////////////////////////////////////////////////////////////////////////
-///////////fields///////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-  
+  ////////////////////////////////////////////////////////////////////////////////
+  ///////////fields///////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
   //make an object of pain manager
   //making an object of sky
   Ground g;                                                                                            //making an object of the ground
   //adding flowers to the forest arraylist
 
-////////////////////////////////////////////////////////////////////////////////
-///////////constructor//////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ///////////constructor//////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
   Environment() {
     g = new Ground();
     sky = new Sky();
     pm = new PainManager();
-    
-    
+
+
     updateMh();
     //making objects from Pain Manager
     //PGraphics back = createGraphics(width, height, P2D);                                                //for leaves
-    forest.add(new Tree(mh, new PVector(random(100, width-100), height-100)));
+    initMin = minute();
+    initSec = second();
+    forest.add(new Tree(mh, 
+      new PVector(random(10, (50+((initMin - minute())*60))), height-100)));
+    println("00  "+((Tree)forest.get(forest.size()-1)).pos.x);
   }
 
-////////////////////////////////////////////////////////////////////////////////
-///////////methods//////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ///////////methods//////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
   void drawTheGame() {
     sky.drawClounds(pr);
     pm.extractPainLevel();
@@ -46,14 +54,15 @@ class Environment {                                                             
     // check if pr is changing
     if (pr >= 0) {
       if (pr <= prBase + 2 && pr >= prBase -2) {
-
         if (forest.get(index).isGrowing) {                                                                //no change->grow       
           forest.get(index).update();                                                                     //grwoing previous ones
-        } else if (index == forest.size()-1) {                                                              //if its the last tree
-          forest.add(new Tree(mh, 
-            new PVector(random(100, width-100), height-100)));                                            // adding new one
+        } else if (index == forest.size()-1) {                                                            //if its the last tree
           index++;
           println("making new one");
+          float r =random(10, (50+(((minute()-initMin)*60)+ (second() - initSec))));
+          forest.add(new Tree(mh, 
+            new PVector(r, height-100)));                        // adding new one
+          println("01  "+index+"  "+ r+ "  --" +(forest.size()-1)+" -- "+((Tree)forest.get(forest.size()-1)).pos.x);
         }
       } else if (pr > prBase+2) {
         updateMh();                                                                                       //update mh  
@@ -67,7 +76,6 @@ class Environment {                                                             
 
     setIndex();
     g.drawG(pr);
-
   }
 
   void setIndex() {
@@ -76,16 +84,16 @@ class Environment {                                                             
     for (int i = 0; i<forest.size(); i++)
     {
       index = i;
-      println("before condition " +" "+mh+"  ------ "+ forest.get(i).pHeight+ "  "  + !forest.get(i).isGrowing + "!!!!!!! " + i);
-      if ( forest.get(i).isGrowing || (forest.get(i).pHeight < mh && !forest.get(i).isGrowing )
-        )                                                                                                //if it is smaller than new maxHeight and it had stopped growing
+      println("before condition " +" "+mh+"  ------ "+ forest.get(i).pHeight+ "  "  + forest.get(i).isGrowing + "!!!!!!! " + i);
+      if ( (forest.get(i).isGrowing && !((Tree)forest.get(i)).noResponseTree) || (forest.get(i).pHeight < mh && !forest.get(i).isGrowing ))         //if it is smaller than new maxHeight and it had stopped growing
       {
         forest.get(i).maxHeight = mh;                                                                    //1-set heights to the new global height if it has changed
-        println("in condition"+ index);
         forest.get(i).isGrowing = true;
+        println("+++++++++++++++++++++++++++++++++++++++++++++");
         return;
       }
     }
+    println("-----------------------------------------");
   }
 
 
