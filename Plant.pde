@@ -1,4 +1,4 @@
-class Plant {//extends Thread{
+class Plant {
 
   float pHeight;
   float maxHeight;
@@ -6,8 +6,12 @@ class Plant {//extends Thread{
   boolean isGrowing;
 
 
-  //==========================================constructor
-  Plant(float maxHeight) {
+  ////////////////////////////////////////////////////////////////////////////////
+  ///////////constructor//////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  
+  Plant(float maxHeight)
+  {
     this.maxHeight = maxHeight;
   }
 
@@ -32,16 +36,17 @@ class Plant {//extends Thread{
   //      } 
   //  } 
 
-  void grow() {
-  }
+  void grow() 
+  {}
 
-  void update() {
-    if (maxHeight >= maxPossibleHeight && !isGrowing) {
-      //all grown up.nomore!
-      isGrown = true;
-    }
 
-   
+  void update() 
+  {
+    if (maxHeight >= maxPossibleHeight && !isGrowing)
+    {
+      isGrown = true;                                                                                      //all grown up.nomore!
+
+    } 
     grow();
   }
 }

@@ -15,7 +15,6 @@ class Branches {
   PVector parentPos;
   float maxLife = 40;
   float[] kidsProbability = new float[4];
-  //PImage leaveImage;
 
 
   Branches(PVector startPos, float stw, float angle, float gen, float[] kp, float base, float cocoef, PVector pp) {
@@ -43,10 +42,10 @@ class Branches {
   void grow(ArrayList<Branches> brs, float mstw) {
 
     if (age == int(maxLife/gen)||random(1)<.01*gen) {                     //branch has reached its max age (or random decides it dies sooner)
-      //maxLife/gen ==> the first branches last longer(are longer)       
+                                                                          //maxLife/gen ==> the first branches last longer(are longer)       
       alive=false;                                                        //time to die!
-      //image(leaveImage, -leaveImage.width/2, 0);
-      if (stw>mstw) {                                                      //devide if it was thick enough(this will change based on pr)[0,20]
+                                                                          //image(leaveImage, -leaveImage.width/2, 0);
+      if (stw>mstw) {                                                     //devide if it was thick enough(this will change based on pr)[0,20]
         //divisions depend on the tree 'probalities'.
         if (random(1)<kidsProbability[0]/gen)brs.add(new Branches(new PVector(pos.x, pos.y), stw*random(.2, 1), angle+random(.7, 1.1)*deviation, gen+.1, kidsProbability, baseC, colorCoeff, parentPos));//;//
         if (random(1)<kidsProbability[1]/gen)brs.add(new Branches(new PVector(pos.x, pos.y), stw*random(.2, 1), angle-random(.7, 1.1)*deviation, gen+.1, kidsProbability, baseC, colorCoeff, parentPos));
@@ -67,10 +66,12 @@ class Branches {
 
     //shadows
     stroke(baseC + age+10*gen, 0, 0, .04);
-    strokeWeight(map(age, 0, maxLife, stw*1.3, stw*.9));
     float dis=.005*pow(parentPos.y-y0, 1.8);
-    line(x0+dis*random(.5, 1.2), 2*parentPos.y-y0+dis*random(.5, 1.2), pos.x+dis*random(.5, 1.2), 2*parentPos.y-pos.y+dis*random(.5, 1.2));//*sin(.3*(st.y-y0))//sin(.3*(st.y-this.position.y))*
-    line(x0+dis*random(.5, 1.2), 2*parentPos.y-y0+dis*random(.5, 1.2), pos.x+dis*random(.5, 1.2), 2*parentPos.y-pos.y+dis*random(.5, 1.2));
+    strokeWeight(map(age, 0, maxLife, stw*1.3, stw*.9));
+    line(x0+dis*random(.5, 1.2), 2*parentPos.y-y0+dis*random(.5, 1.2),
+      pos.x+dis*random(.5, 1.2), 2*parentPos.y-pos.y+dis*random(.5, 1.2));//*sin(.3*(st.y-y0))//sin(.3*(st.y-this.position.y))*
+    line(x0+dis*random(.5, 1.2), 2*parentPos.y-y0+dis*random(.5, 1.2),
+      pos.x+dis*random(.5, 1.2), 2*parentPos.y-pos.y+dis*random(.5, 1.2));
 
 
 
