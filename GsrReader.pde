@@ -1,5 +1,5 @@
 /* this class reads data from GSR sensor's server. however, if we run the code without the sensors error rises so
-I just commented related parts so you can run it indipendently, also, the code is manual (and still clicking simulate GSR leap)*/
+ I just commented related parts so you can run it indipendently, also, the code is manual (and still clicking simulate GSR leap)*/
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -14,8 +14,9 @@ class GsrReader extends Thread implements Runnable {                            
   private String gsrData = "";
   private DatagramSocket socket;
   private boolean running;
+  private String received ;
   private byte[] buf = new byte[256];
-  
+
   GsrReader() {
     try {
       socket = new DatagramSocket(9109);
@@ -33,14 +34,14 @@ class GsrReader extends Thread implements Runnable {                            
 
         socket.receive(packet);
         packet = new DatagramPacket(buf, buf.length, InetAddress.getByName("localhost"), 9109);
-        String received = new String(packet.getData(), 0, packet.getLength());
-
+        received = new String(packet.getData(), 0, packet.getLength());
+        println(received);
         if (received.equals("end")) {
           running = false;
           socket.close();
           continue;
         }
-        gsrData = received.split(".", 6)[0];
+        gsrData = received.split(",", 6)[0];
       }
     }
     catch(Exception ex) {
@@ -51,10 +52,10 @@ class GsrReader extends Thread implements Runnable {                            
 
   float readData() {
 
-    dataIn = gsrData.equals("") ? 0.0 : Float.valueOf(gsrData);
-    //if (myClient.available() > 0) { 
-    //  dataIn = Float.valueOf(myClient.readString().split(".", 4)[0]);
-    //}
+    if (received != null) { 
+      println("in the readData "+received+"!!");
+      dataIn = gsrData.equals("") ? 0.0 : Float.valueOf(gsrData);
+    }
     return dataIn;
   }
 }
