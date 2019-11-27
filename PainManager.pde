@@ -31,9 +31,12 @@ class PainManager {
     }
     else{
       //getting the line slop
-      float slop = (peak - input)/((minute() - initMin)*3600 + (second() - initSec)*60 + (millis() - initMil));//deltaX/deltaT
-      //checking if the slope was negative and high, then changes are significatn = > rturnung higher pr      
-      
+      float slop = (input - peak)/((minute() - initMin)*3600 + (second() - initSec)*60 + (millis() - initMil));//deltaX/deltaT
+      //checking if the slope was negative and high, then changes are significatn = > rturnung higher pr
+      float baselineSlop = (gsrBaseline - peak)/((minute() - initMin)*3600 + (second() - initSec)*60 + (millis() - initMil));//deltaX/deltaT
+      if(slop < baselineSlop){
+         painRel = abs(slop)/abs(baselineSlop);//relativeness of slops 
+      }      
     }
     
     //println("--------------------------------------------------data:--------------------"+ input);
