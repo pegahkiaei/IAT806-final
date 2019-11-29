@@ -19,7 +19,7 @@ class Sky {
   {
     push();
     noStroke();
-    fill(5, 8, 80);
+    fill(5, 8, 60);
 
     rect(0, 0, width, 2*height/7);                                                      //Clouds background(clear the screen)
     for (int i = 0 ; i < height/2 ; i += 3) 

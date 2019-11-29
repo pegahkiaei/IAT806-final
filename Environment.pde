@@ -58,8 +58,9 @@ class Environment {                                                             
         else if (index == forest.size()-1) 
         {                                                                                                 //if its the last tree
           index++;
-          float r =random(10, 
-              (50+(((minute()-initMin)*60) + (second() - initSec))));
+          float r =random( 
+              ((((minute()-initMin)*60) + (second() - initSec)))-50,(((minute()-initMin)*60) + (second() - initSec))+50);
+              println(r);
           forest.add(new Tree(mh, new PVector(r, height-100)));                                           // adding new one
         }
       } 
@@ -88,6 +89,7 @@ class Environment {                                                             
     for (int i = 0 ; i< forest.size() ; i++)
     {
       index = i;
+      println( i + " -- " + forest.get(i).isGrowing +"**"+ ((Tree)forest.get(i)).noResponseTree);
       if ( (forest.get(i).isGrowing && !((Tree)forest.get(i)).noResponseTree) || 
         (forest.get(i).pHeight < mh && !forest.get(i).isGrowing ))                                     //if it is smaller than new maxHeight and it had stopped growing
       {

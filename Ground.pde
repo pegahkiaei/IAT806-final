@@ -6,7 +6,7 @@ class Ground {
   {
     for (int i=0; i<40; i++) 
     {
-      ground[i]  = new GroundPieces(width/40*i, random(height-150, height-60), width/40*(i+1), 
+      ground[i]  = new GroundPieces(i*(width/40), random(height-150, height-60), width/40*(i+1), 
                                     random(height-150, height-60),width/40*(i),random(height-100, height-60));
     }
   }
@@ -17,12 +17,14 @@ class Ground {
     noStroke();
     beginShape();
     fill(63, 122, 77, pr);
-    for (int i=0; i<40; i++) 
+    
+    for (int i=0 ; i<40 ; i++) 
     {
       vertex(ground[i].x1, ground[i].y1);
-      bezierVertex(ground[i].x, ground[i].y,ground[i].x2, ground[i].y2,ground[i].x3, ground[i].y3);
+      bezierVertex(ground[i].x  ,  ground[i].y3  ,  ground[i].x3  ,  ground[i].y2  ,  ground[i].x2  ,  ground[i].y);
     }
-    vertex(ground[39].x2, height);
+    
+    vertex(ground[39].x3, height);
     vertex(ground[0].x1, height);
     endShape(CLOSE);
     pop();

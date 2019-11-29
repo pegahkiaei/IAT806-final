@@ -69,7 +69,7 @@ class Tree extends Plant {
 
     maxStrokeWidth = map(mh, 0, height, 100, 0.5);
     pHeight =  map(branches.get(branches.size()-1).stw, 50, 0.5, 0, height);
-    //println(branches.get(branches.size()-1).stw +"    00    "+ map(mh, height, 0, 0.5, 50)+"    **  " +"-------------ph  "+pHeight +"  "+maxStrokeWidth);
+    println(branches.get(branches.size()-1).stw +"    00    "+ map(mh, height, 0, 0.5, 50)+"    **  " +"-------------ph  "+pHeight +"  "+maxStrokeWidth);
 
     if (pHeight > maxHeight) 
     {                                                                                                  // stop growing
