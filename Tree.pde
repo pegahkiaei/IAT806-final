@@ -1,4 +1,4 @@
-/* The code of this class is not purely mine, it is inspired from  
+/* The code of this class is not purely mine, it is inspired   
  https://www.openprocessing.org/sketch/635857by Pierre MARZIN 14/11/2018, with modifications and transferring to Java,
  so, there was a need of totall undrestanding of the code*/
 class Tree extends Plant {
